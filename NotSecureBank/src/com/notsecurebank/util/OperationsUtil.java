@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 
 import com.notsecurebank.model.Account;
 import com.notsecurebank.model.User;
+import com.notsecurebank.util.ServletUtil;
 
 public class OperationsUtil {
 
@@ -105,6 +106,8 @@ public class OperationsUtil {
         email = StringEscapeUtils.escapeSql(email);
         subject = StringEscapeUtils.escapeSql(subject);
         comments = StringEscapeUtils.escapeSql(comments);
+        //aggiunto un filtro uteriori sul commento, verificando che non siano presenti tag <script> che permettano l'inserimento di url di reflect
+        comments = ServletUtil.sanitizeHtmlWithRegex(comments);
 
         long id = DBUtil.storeFeedback(name, email, subject, comments);
         return String.valueOf(id);
