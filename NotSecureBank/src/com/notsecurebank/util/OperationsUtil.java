@@ -19,6 +19,11 @@ public class OperationsUtil {
     private static final Logger LOG = LogManager.getLogger(OperationsUtil.class);
 
     public static String doTransfer(HttpServletRequest request, long creditActId, String accountIdString, double amount) {
+        // bisognerebbe aggiungere un controllo aggiuntivi sull'account da cui si preleva. Non basta prendere il dato dai cookie
+        // ma bisognerebbe anche verificare che il conto sia suo. Per fare questo bisognerebbe creare una tabella a DB dedicata
+        // questa tabella manterrebbe i conti di tutti gli utenti registrati. Sfruttando questa tabella, prima di fare un trasferimento, se
+        // l'account è presente nei cookie bisognerebbe fare un check ulteriore su questa tabella se anche l'accunt è presente in questa tabella
+        // abbiamo la sicurezza che l'accuont sia suo
         LOG.debug("doTransfer(HttpServletRequest, " + creditActId + ", '" + accountIdString + "', " + amount + ")");
 
         long debitActId = 0;
