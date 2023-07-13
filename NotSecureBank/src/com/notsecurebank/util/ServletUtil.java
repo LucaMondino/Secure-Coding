@@ -219,6 +219,33 @@ public class ServletUtil {
         }
     }
 
+    //ho iplementato una nuova funzione di verifica per login di un'admin:
+    //controllo se il ruolo è admin e se ha la variabile di sessione degli admin
+    static public boolean isLoggedinAdmin(HttpServletRequest request) {
+        LOG.info("Is logged in?");
+
+        try {
+            // Check user is logged in
+            User user = (User) request.getSession().getAttribute(ServletUtil.SESSION_ATTR_USER);
+            Object admObj = request.getSession().getAttribute(ServletUtil.SESSION_ATTR_ADMIN_KEY);
+            if (user == null || user.getRole() != Role.Admin) {
+                LOG.info("False.");
+                return false;
+            }
+            if(admObj == null || admObj
+                    instanceof String && !(((String) admObj).equals(ServletUtil.SESSION_ATTR_ADMIN_VALUE)){
+                return false;
+            }
+        } catch (Exception e) {
+            LOG.error(e.toString());
+            LOG.info("False.");
+            return false;
+        }
+
+        LOG.info("True.");
+        return true;
+    }
+
     static public boolean isLoggedin(HttpServletRequest request) {
         LOG.info("Is logged in?");
 
