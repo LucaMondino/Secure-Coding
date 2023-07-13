@@ -232,6 +232,8 @@ public class ServletUtil {
                 LOG.info("False.");
                 return false;
             }
+            //Un'altra possibile soluzione è quella di sfuttare i JWT con al suo interno l'informazione se l'utente è admin o meno
+            //quindi decodificando il jwt è possibile stabilire se l'utente è abilitato a questa funzionalità
             if(admObj == null || admObj
                     instanceof String && !(((String) admObj).equals(ServletUtil.SESSION_ATTR_ADMIN_VALUE)){
                 return false;
