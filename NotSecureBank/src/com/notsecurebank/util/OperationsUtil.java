@@ -107,6 +107,8 @@ public class OperationsUtil {
         subject = StringEscapeUtils.escapeSql(subject);
         comments = StringEscapeUtils.escapeSql(comments);
         //aggiunto un filtro uteriori sul commento, verificando che non siano presenti tag <script> che permettano l'inserimento di url di reflect
+        //questo pezzo di codice ci tutela anche contro il Stored XSS, facendo una validazione dell'input siamo tutelati dal fatto che non si potranno inserire
+        //script che permettano di salvare informazioni non volute
         comments = ServletUtil.sanitizeHtmlWithRegex(comments);
 
         long id = DBUtil.storeFeedback(name, email, subject, comments);
