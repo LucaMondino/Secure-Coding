@@ -273,7 +273,8 @@ public class ServletUtil {
 
     public static boolean isPreApprovedForGoldVisa(HttpServletRequest request) {
         LOG.debug("isPreApprovedForGoldVisa");
-
+        // bisognerebbe eliminare la parte di controllo sui cookie e utilizzare un controllo più sicuro per il preApprovedForGoldVisa
+        // una possibile soluzione potrebbe essere quella di implementare una query a db aggiungendo un'opportuna colonna per questo dato
         boolean isPreApprovedForGoldVisa = false;
         Cookie[] cookies = request.getCookies();
         if (cookies != null && cookies.length > 0) {
